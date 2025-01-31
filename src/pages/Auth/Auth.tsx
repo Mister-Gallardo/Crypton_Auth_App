@@ -1,8 +1,11 @@
+import { Box } from "@mui/material";
 import React from "react";
 
 const Auth: React.FC = () => {
     return (
-        <div>auth</div>
+        <Box style={{ color: '#f0f0f0'}}>
+            123
+        </Box>
     )
 }
 
