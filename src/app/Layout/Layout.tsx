@@ -4,7 +4,14 @@ import { Box } from "@mui/material";
 import ThemeToggleButton from "../../shared/ui/ThemeToggleButton";
 
 const Layout: React.FC = () => (
-  <Box sx={{ height: "100vh" }}>
+  <Box
+    sx={{
+      height: "100vh",
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center",
+    }}
+  >
     <ThemeToggleButton />
     <Outlet />
   </Box>
