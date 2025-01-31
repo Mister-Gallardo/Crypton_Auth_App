@@ -99,15 +99,11 @@ const Auth: React.FC = React.memo(() => {
               defaultValue=""
               rules={{
                 required: "Укажите пароль",
-                pattern: {
-                  value: /^[a-zA-Z0-9]{6,}$/,
-                  message: "Неверный формат пароля",
-                },
               }}
               render={({ field, fieldState }) => (
                 <InputPassword
                   {...field}
-                  label="Придумайте пароль"
+                  label="Введите пароль"
                   error={!!fieldState.error}
                   helperText={fieldState.error?.message as string}
                 />
@@ -117,9 +113,9 @@ const Auth: React.FC = React.memo(() => {
           <Box
             sx={{ width: { xs: "90%", sm: "75%" }, display: "flex", gap: 1 }}
           >
-            <Typography>Уже есть аккаунт?</Typography>
-            <Link to="/profile" style={{ color: color }}>
-              Войти
+            <Typography>Нет аккаунта?</Typography>
+            <Link to="/register" style={{ color: color }}>
+              Зарегистрироваться
             </Link>
           </Box>
         </Box>
@@ -133,7 +129,7 @@ const Auth: React.FC = React.memo(() => {
             width: { xs: "90%", sm: "75%" },
           }}
         >
-          Создать аккаунт
+          Войти
         </Button>
       </form>
     </AuthProfileWrapper>
