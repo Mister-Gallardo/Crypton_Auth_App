@@ -7,8 +7,8 @@ import {
   useForm,
 } from "react-hook-form";
 import { Link } from "react-router-dom";
-import AuthProfileWrapper from "../../shared/ui/AuthProfileWrapper";
-import InputPassword from "../../shared/ui/InputPassword";
+import AuthProfileWrapper from "../../../shared/ui/AuthProfileWrapper";
+import InputPassword from "../../../shared/ui/InputPassword";
 
 interface InputProps {
   email: string;
