@@ -1,28 +1,39 @@
+import React, { useCallback, useState } from "react";
+import axios from "axios";
 import { Box, Button, TextField, Typography, useTheme } from "@mui/material";
-import React, { useCallback } from "react";
 import {
   Controller,
   SubmitErrorHandler,
   SubmitHandler,
   useForm,
 } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import AuthProfileWrapper from "../../../shared/ui/AuthProfileWrapper";
 import InputPassword from "../../../shared/ui/InputPassword";
-
-interface InputProps {
-  email: string;
-  password: string;
-}
+import SnackbarError from "../../../shared/ui/SnackbarError";
+import { InputProps } from "../../../shared/types/types";
+import { getUser } from "../model/getUser";
 
 const Auth: React.FC = React.memo(() => {
+  const navigate = useNavigate();
+
+  const [openSnackbar, setOpenSnackbar] = useState(false);
+
   const theme = useTheme();
   const color = theme.palette.mode === "dark" ? "#f0f0f0" : "#333333";
 
   const { handleSubmit, control } = useForm<InputProps>();
 
-  const submitOnValid: SubmitHandler<InputProps> = useCallback((data) => {
-    console.log(data);
+  const submitOnValid: SubmitHandler<InputProps> = useCallback(async (data) => {
+    try {
+      const jwtToken = (await getUser(data)).token;
+      localStorage.setItem("token", jwtToken);
+      axios.defaults.headers["Authorization"] = `${jwtToken}`;
+      navigate("/profile");
+    } catch (error) {
+      setOpenSnackbar(true);
+      console.log(error);
+    }
   }, []);
 
   const submitOnInValid: SubmitErrorHandler<InputProps> = useCallback(
@@ -32,7 +43,6 @@ const Auth: React.FC = React.memo(() => {
     []
   );
 
-  console.log(123);
   return (
     <AuthProfileWrapper>
       <Typography sx={{ fontWeight: "700", marginBottom: 4 }} variant="h4">
@@ -124,6 +134,7 @@ const Auth: React.FC = React.memo(() => {
           variant="outlined"
           size="large"
           sx={{
+            fontSize: 18,
             borderColor: color,
             color: color,
             width: { xs: "90%", sm: "75%" },
@@ -132,6 +143,10 @@ const Auth: React.FC = React.memo(() => {
           Войти
         </Button>
       </form>
+      <SnackbarError
+        open={openSnackbar}
+        handleClose={() => setOpenSnackbar(false)}
+      />
     </AuthProfileWrapper>
   );
 });

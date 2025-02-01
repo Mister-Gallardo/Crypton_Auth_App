@@ -18,7 +18,7 @@ import { Link, useNavigate } from "react-router-dom";
 import AuthProfileWrapper from "../../../shared/ui/AuthProfileWrapper";
 import InputPassword from "../../../shared/ui/InputPassword";
 import SnackbarSuccess from "../../../shared/ui/SnackbarError";
-import { postUser, InputProps } from "../model/PostUser";
+import { postUser, InputProps } from "../model/postUser";
 
 const Register: React.FC = React.memo(() => {
   const [openSnackbar, setOpenSnackbar] = useState(false);
@@ -142,6 +142,7 @@ const Register: React.FC = React.memo(() => {
           variant="outlined"
           size="large"
           sx={{
+            fontSize: 18,
             borderColor: color,
             color: color,
             width: { xs: "90%", sm: "75%" },

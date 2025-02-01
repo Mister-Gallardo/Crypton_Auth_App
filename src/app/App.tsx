@@ -8,12 +8,15 @@ import { ThemeProvider } from "./providers/ThemeContext";
 import Auth from "../pages/auth/ui/Auth";
 
 function App() {
-  localStorage.removeItem("token");
+  const navigate = useNavigate();
 
   useEffect(() => {
     const jwtToken = localStorage.getItem("token");
 
-    if (jwtToken) axios.defaults.headers["Authorization"] = `${jwtToken}`;
+    if (jwtToken) {
+      axios.defaults.headers["Authorization"] = `${jwtToken}`;
+      navigate('/profile');
+    }
   }, []);
 
   return (

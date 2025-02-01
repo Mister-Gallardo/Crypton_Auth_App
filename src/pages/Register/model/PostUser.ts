@@ -1,9 +1,5 @@
 import axios from 'axios';
-
-export interface InputProps {
-    email: string;
-    password: string;
-};
+import { InputProps } from '../../../shared/types/types';
 
 export const postUser = async (user: InputProps) => {
     const { data } = await axios.post(
@@ -13,3 +9,4 @@ export const postUser = async (user: InputProps) => {
 
     return data;
 };
+
