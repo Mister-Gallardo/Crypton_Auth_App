@@ -1,50 +1,87 @@
-# React + TypeScript + Vite
+```markdown
+# Проект авторизации с поддержкой темы (светлая/тёмная) и сохранением состояния в localStorage
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Это веб-приложение, реализующее страницу авторизации (Auth), страницу регистрации (Register) и страницу профиля (Profile). Проект использует тему, которая поддерживает переключение между светлой и тёмной темами, а также системную тему, определяемую предпочтениями пользователя (например, в зависимости от настроек ОС).
 
-Currently, two official plugins are available:
+## Технологии
+- **React** — библиотека для построения пользовательских интерфейсов.
+- **TypeScript** — для статической типизации.
+- **Material-UI (MUI)** — для стилизации компонентов.
+- **React Router** — для маршрутизации.
+- **React Context API** — для глобального управления состоянием темы.
+- **Axios** — для отправки запросов на сервер (для работы с авторизацией).
+- **localStorage** — для сохранения состояния темы между сессиями.
+- **Prettier** — для внешнего вида кода.
+- **ESlint** — для правильности составления кода.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Структура проекта
 
-## Expanding the ESLint configuration
+Проект организован по принципам **Feature-Sliced Design (FSD)**, с разделением на компоненты и страницы:
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+- **`src/app`** — базовые файлы конфигурации, layout и управление темой.
+- **`src/pages`** — страницы приложения: авторизация (`Auth.tsx`) и профиль (`Profile.tsx`).
+- **`src/shared/ui`** — общие UI-компоненты, такие как кнопка переключения темы.
+- **`src/shared/api`** — общая конфигурация api.
+- **`src/shared/types`** — общие типы.
 
-- Configure the top-level `parserOptions` property like this:
+## Как запустить проект
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+### 1. Клонировать репозиторий
+
+```bash
+git clone https://github.com/Mister-Gallardo/Crypton_Auth_App.git
 ```
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+### 2. Установить зависимости
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+Перейдите в папку проекта и установите все необходимые зависимости:
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
+```bash
+cd your-repo-name
+npm install
 ```
+
+### 3. Запустить проект
+
+Запустите проект в режиме разработки:
+
+```bash
+npm run dev
+```
+
+Приложение будет доступно по адресу [http://localhost:5173](http://localhost:5173).
+
+## Описание работы
+
+### Страница авторизации (Auth)
+- Пользователь вводит свои данные для авторизации.
+- Токен пользователя сохраняется в `localStorage`.
+- Приложение сохраняет состояние темы и текущий режим (светлый/тёмный/системный) в `localStorage`.
+
+### Страница регистрации (Register)
+- Пользователь вводит данные для регистрации.
+- Токен пользователя сохраняется в `localStorage`.
+- Приложение сохраняет состояние темы и текущий режим (светлый/тёмный/системный) в `localStorage`.
+
+### Страница профиля (Profile)
+- При успешной авторизации пользователь перенаправляется на страницу профиля.
+- Все настройки темы сохраняются и применяются, включая фон страницы и интерфейса.
+
+### Переключение темы
+- Кнопка для изменения темы доступна на обеих страницах.
+- Тема может быть:
+  - **Светлая**
+  - **Тёмная**
+  - **Системная** (выбирается в зависимости от предпочтений пользователя в системе)
+
+## Важные компоненты
+
+- **ThemeContext** — Контекст для управления текущей темой и сохранения её состояния.
+- **PageWrapper** — Общий компонент обёртки для страниц авторизации и профиля с кастомными стилями.
+- **ThemeToggleButton** — Кнопка для переключения между темами, доступная на всех страницах.
+
+## Примечания
+
+1. Тема сохраняется в `localStorage` и применяется на всех страницах.
+2. Страница профиля доступна только после успешной авторизации.
+3. Приложение использует систему тем, которая автоматически подстраивается под предпочтения операционной системы (системная тема).

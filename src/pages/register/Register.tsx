@@ -14,7 +14,7 @@ import {
   useForm,
 } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
-import AuthProfileWrapper from "../../shared/ui/AuthProfileWrapper";
+import AuthProfileWrapper from "../../shared/ui/PageWrapper";
 import InputPassword from "../../shared/ui/InputPassword";
 import SnackbarError from "../../shared/ui/SnackbarError";
 import { InputProps } from "../../shared/types/types";

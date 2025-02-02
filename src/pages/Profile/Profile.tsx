@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { Box, Button, Typography, useTheme } from "@mui/material";
 import MailOutlineIcon from "@mui/icons-material/MailOutline";
 import KeyIcon from "@mui/icons-material/Key";
-import AuthProfileWrapper from "../../shared/ui/AuthProfileWrapper";
+import AuthProfileWrapper from "../../shared/ui/PageWrapper";
 import apiStore from "../../shared/api/fetchUser";
 
 const Profile: React.FC = React.memo(() => {
