@@ -13,11 +13,10 @@ const App: React.FC = () => {
 
     if (jwtToken) {
       axios.defaults.headers["Authorization"] = `${jwtToken}`;
-      location.pathname !== "/profile" && navigate("/profile");
+      if (location.pathname !== "/profile") navigate("/profile");
     }
-  }, []);
+  }, [location.pathname, navigate]);
 
-  console.log("app");
   return (
     <ThemeProvider>
       <Routes />

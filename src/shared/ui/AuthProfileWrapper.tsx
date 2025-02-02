@@ -10,7 +10,6 @@ const AuthProfileWrapper: React.FC<AuthProfileWrapperProps> = ({
 }) => {
   const theme = useTheme();
 
-  console.log('wrap')
   return (
     <Box
       sx={{
@@ -31,7 +30,7 @@ const AuthProfileWrapper: React.FC<AuthProfileWrapperProps> = ({
         flexDirection: 'column',
         justifyContent: "center",
         alignItems: "center",
-        borderRadius: '15px',
+        borderRadius: {xs: 'none', sm: '15px'},
         padding: '30px 0px 40px',
       }}
     >

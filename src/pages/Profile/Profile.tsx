@@ -33,7 +33,6 @@ const Profile: React.FC = React.memo(() => {
     navigate("/");
   };
 
-  console.log("prof");
   return (
     <AuthProfileWrapper>
       <Typography sx={{ fontWeight: "700", marginBottom: 4 }} variant="h4">

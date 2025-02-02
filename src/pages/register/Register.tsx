@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from "react";
+import React, { useState } from "react";
 import {
   Box,
   Button,
@@ -47,7 +47,6 @@ const Register: React.FC = React.memo(() => {
     console.log(data);
   }
 
-  console.log('reg')
   return (
     <AuthProfileWrapper>
       <Typography sx={{ fontWeight: "700", marginBottom: 4 }} variant="h4">

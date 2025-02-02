@@ -1,51 +1,27 @@
-import React, {
-  createContext,
-  useEffect,
-  useMemo,
-  useState,
-  ReactNode,
-} from "react";
-import {
-  ThemeProvider as MuiThemeProvider,
-  createTheme,
-} from "@mui/material/styles";
+import React, { useEffect, useMemo, useState, ReactNode } from "react";
+import { ThemeContext } from "./ThemeContext";
+import { ThemeProvider as MuiThemeProvider, createTheme } from "@mui/material/styles";
 import { CssBaseline } from "@mui/material";
 
-type ThemeMode = "light" | "dark" | "system";
-
-interface ThemeContextProps {
-  themeMode: ThemeMode;
-  toggleTheme: () => void;
-}
-
-export const ThemeContext = createContext<ThemeContextProps>({
-  themeMode: "system",
-  toggleTheme: () => {},
-});
-
-export const ThemeProvider: React.FC<{ children: ReactNode }> = ({
-  children,
-}) => {
-  const [themeMode, setThemeMode] = useState<ThemeMode>(() => {
-    return (localStorage.getItem("app-theme") as ThemeMode) || "system";
-  });
+export const ThemeProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
+  const [themeMode, setThemeMode] = useState<"light" | "dark" | "system">(
+    () => (localStorage.getItem("app-theme") as "light" | "dark" | "system") || "system"
+  );
 
   useEffect(() => {
     localStorage.setItem("app-theme", themeMode);
   }, [themeMode]);
 
   const toggleTheme = () => {
-    setThemeMode((prev) => {
-      const nextTheme =
-        prev === "light" ? "dark" : prev === "dark" ? "system" : "light";
-      return nextTheme;
-    });
+    setThemeMode((prev) =>
+      prev === "light" ? "dark" : prev === "dark" ? "system" : "light"
+    );
   };
 
-  // для системной темы
-  const prefersDarkMode = useMemo(() => {
-    return window.matchMedia("(prefers-color-scheme: dark)").matches;
-  }, []);
+  const prefersDarkMode = useMemo(
+    () => window.matchMedia("(prefers-color-scheme: dark)").matches,
+    []
+  );
 
   const theme = useMemo(() => {
     const mode =
@@ -64,7 +40,6 @@ export const ThemeProvider: React.FC<{ children: ReactNode }> = ({
     });
   }, [themeMode, prefersDarkMode]);
 
-  console.log("provide");
   return (
     <ThemeContext.Provider value={{ themeMode, toggleTheme }}>
       <MuiThemeProvider theme={theme}>
@@ -74,3 +49,5 @@ export const ThemeProvider: React.FC<{ children: ReactNode }> = ({
     </ThemeContext.Provider>
   );
 };
+
+export { ThemeContext };

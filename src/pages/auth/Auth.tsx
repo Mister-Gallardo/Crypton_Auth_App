@@ -34,7 +34,7 @@ const Auth: React.FC = React.memo(() => {
       setOpenSnackbar(true);
       console.log(error);
     }
-  }, []);
+  }, [navigate]);
 
   const submitOnInValid: SubmitErrorHandler<InputProps> = useCallback(
     (data) => {
@@ -42,8 +42,7 @@ const Auth: React.FC = React.memo(() => {
     },
     []
   );
-
-  console.log('auth')  
+  
   return (
     <AuthProfileWrapper>
       <Typography sx={{ fontWeight: "700", marginBottom: 4 }} variant="h4">
