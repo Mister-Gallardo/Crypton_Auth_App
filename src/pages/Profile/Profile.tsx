@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { Box, Button, Typography, useTheme } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import AuthProfileWrapper from "../../shared/ui/AuthProfileWrapper";
+import { Box, Button, Typography, useTheme } from "@mui/material";
 import MailOutlineIcon from "@mui/icons-material/MailOutline";
 import KeyIcon from "@mui/icons-material/Key";
-import { getUser } from "./model/getUser";
+import AuthProfileWrapper from "../../shared/ui/AuthProfileWrapper";
+import apiStore from "../../shared/api/fetchUser";
 
 const Profile: React.FC = React.memo(() => {
   const navigate = useNavigate();
@@ -12,15 +12,17 @@ const Profile: React.FC = React.memo(() => {
   const [id, setId] = useState();
 
   useEffect(() => {
-    (async function () {
+    const fetchUser = async () => {
       try {
-        const resp = await getUser();
+        const resp = await apiStore.Profile();
         setEmail(resp.email);
         setId(resp.id);
       } catch (error) {
         console.log(error);
       }
-    })();
+    };
+
+    fetchUser();
   }, []);
 
   const theme = useTheme();
@@ -31,6 +33,7 @@ const Profile: React.FC = React.memo(() => {
     navigate("/");
   };
 
+  console.log("prof");
   return (
     <AuthProfileWrapper>
       <Typography sx={{ fontWeight: "700", marginBottom: 4 }} variant="h4">

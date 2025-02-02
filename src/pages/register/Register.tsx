@@ -2,7 +2,6 @@ import React, { useCallback, useState } from "react";
 import {
   Box,
   Button,
-  InputProps,
   TextField,
   Typography,
   useTheme,
@@ -15,10 +14,11 @@ import {
   useForm,
 } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
-import AuthProfileWrapper from "../../../shared/ui/AuthProfileWrapper";
-import InputPassword from "../../../shared/ui/InputPassword";
-import SnackbarSuccess from "../../../shared/ui/SnackbarError";
-import { postUser, InputProps } from "../model/postUser";
+import AuthProfileWrapper from "../../shared/ui/AuthProfileWrapper";
+import InputPassword from "../../shared/ui/InputPassword";
+import SnackbarError from "../../shared/ui/SnackbarError";
+import { InputProps } from "../../shared/types/types";
+import apiStore from "../../shared/api/fetchUser";
 
 const Register: React.FC = React.memo(() => {
   const [openSnackbar, setOpenSnackbar] = useState(false);
@@ -30,9 +30,9 @@ const Register: React.FC = React.memo(() => {
 
   const { handleSubmit, control } = useForm<InputProps>();
 
-  const submitOnValid: SubmitHandler<InputProps>= async (data: InputProps) => {
+  const submitOnValid: SubmitHandler<InputProps> = async (data) => {
     try {
-      const jwtToken = (await postUser(data)).token;
+      const jwtToken = (await apiStore.Register(data)).token;
       localStorage.setItem("token", jwtToken);
       axios.defaults.headers["Authorization"] = `${jwtToken}`;
       navigate('/profile');
@@ -42,11 +42,12 @@ const Register: React.FC = React.memo(() => {
     }
   };
 
-  const submitOnInValid: SubmitErrorHandler<InputProps> = (data: InputProps) => {
+  const submitOnInValid: SubmitErrorHandler<InputProps> = (data) => {
     setOpenSnackbar(true);
     console.log(data);
   }
 
+  console.log('reg')
   return (
     <AuthProfileWrapper>
       <Typography sx={{ fontWeight: "700", marginBottom: 4 }} variant="h4">
@@ -151,7 +152,7 @@ const Register: React.FC = React.memo(() => {
           Создать аккаунт
         </Button>
       </form>
-      <SnackbarSuccess
+      <SnackbarError
         open={openSnackbar}
         handleClose={() => setOpenSnackbar(false)}
       />

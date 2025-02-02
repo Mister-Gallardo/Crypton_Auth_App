@@ -8,11 +8,11 @@ import {
   useForm,
 } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
-import AuthProfileWrapper from "../../../shared/ui/AuthProfileWrapper";
-import InputPassword from "../../../shared/ui/InputPassword";
-import SnackbarError from "../../../shared/ui/SnackbarError";
-import { InputProps } from "../../../shared/types/types";
-import { getUser } from "../model/getUser";
+import AuthProfileWrapper from "../../shared/ui/AuthProfileWrapper";
+import InputPassword from "../../shared/ui/InputPassword";
+import SnackbarError from "../../shared/ui/SnackbarError";
+import { InputProps } from "../../shared/types/types";
+import apiStore from "../../shared/api/fetchUser";
 
 const Auth: React.FC = React.memo(() => {
   const navigate = useNavigate();
@@ -26,7 +26,7 @@ const Auth: React.FC = React.memo(() => {
 
   const submitOnValid: SubmitHandler<InputProps> = useCallback(async (data) => {
     try {
-      const jwtToken = (await getUser(data)).token;
+      const jwtToken = (await apiStore.Auth(data)).token;
       localStorage.setItem("token", jwtToken);
       axios.defaults.headers["Authorization"] = `${jwtToken}`;
       navigate("/profile");
@@ -43,6 +43,7 @@ const Auth: React.FC = React.memo(() => {
     []
   );
 
+  console.log('auth')  
   return (
     <AuthProfileWrapper>
       <Typography sx={{ fontWeight: "700", marginBottom: 4 }} variant="h4">

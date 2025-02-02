@@ -10,6 +10,7 @@ const AuthProfileWrapper: React.FC<AuthProfileWrapperProps> = ({
 }) => {
   const theme = useTheme();
 
+  console.log('wrap')
   return (
     <Box
       sx={{

@@ -1,36 +1,28 @@
-import { useEffect } from "react";
+import React, { useEffect } from "react";
 import axios from "axios";
-import { Navigate, Route, Routes, useNavigate } from "react-router-dom";
-import Register from "../pages/register/ui/Register";
-import Profile from "../pages/profile/Profile";
-import Layout from "./Layout/Layout";
+import { useLocation, useNavigate } from "react-router-dom";
 import { ThemeProvider } from "./providers/ThemeContext";
-import Auth from "../pages/auth/ui/Auth";
+import Routes from "./providers/Routes/Routes";
 
-function App() {
+const App: React.FC = () => {
   const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
     const jwtToken = localStorage.getItem("token");
 
     if (jwtToken) {
       axios.defaults.headers["Authorization"] = `${jwtToken}`;
-      navigate('/profile');
+      location.pathname !== "/profile" && navigate("/profile");
     }
   }, []);
 
+  console.log("app");
   return (
     <ThemeProvider>
-      <Routes>
-        <Route element={<Layout />}>
-          <Route path="/register" element={<Register />} />
-          <Route path="/auth" element={<Auth />} />
-          <Route path="/profile" element={<Profile />} />
-          <Route path="/" element={<Navigate to="/register" />} />
-        </Route>
-      </Routes>
+      <Routes />
     </ThemeProvider>
   );
-}
+};
 
 export default App;

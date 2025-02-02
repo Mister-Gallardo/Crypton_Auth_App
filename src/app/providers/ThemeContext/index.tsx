@@ -43,9 +43,9 @@ export const ThemeProvider: React.FC<{ children: ReactNode }> = ({
   };
 
   // для системной темы
-  const prefersDarkMode = window.matchMedia(
-    "(prefers-color-scheme: dark)"
-  ).matches;
+  const prefersDarkMode = useMemo(() => {
+    return window.matchMedia("(prefers-color-scheme: dark)").matches;
+  }, []);
 
   const theme = useMemo(() => {
     const mode =
@@ -64,6 +64,7 @@ export const ThemeProvider: React.FC<{ children: ReactNode }> = ({
     });
   }, [themeMode, prefersDarkMode]);
 
+  console.log("provide");
   return (
     <ThemeContext.Provider value={{ themeMode, toggleTheme }}>
       <MuiThemeProvider theme={theme}>
