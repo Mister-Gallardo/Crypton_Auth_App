@@ -1,33 +1,16 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html>
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Crypton Auth App</title>
-  </head>
-  <body>
+    <title>404 Redirect</title>
     <script>
-      // Укажите базовый путь вашего приложения (для GitHub Pages, если приложение не в корне домена)
-      const basePath = "/Crypton_Auth_App";
-
-      // Получаем текущий путь из URL
-      const currentPath = window.location.pathname;
-
-      // Если пользователь зашел не на базовый URL, а по вложенному маршруту,
-      // и если в URL еще нет параметра redirect, то выполняем перенаправление:
-      if (
-        currentPath !== `${basePath}/` &&
-        !window.location.search.includes("redirect")
-      ) {
-        // Перенаправляем на базовый URL с параметром redirect, содержащим исходный путь
-        window.location.replace(
-          `${basePath}/?redirect=${encodeURIComponent(currentPath)}`
-        );
-      }
+      // Редирект на корректный путь через параметр redirect
+      var redirectPath = window.location.pathname
+        .replace('/Crypton_Auth_App/', '')
+        .replace(/&/g, '~and~');
+      window.location.href = '/Crypton_Auth_App/?redirect=' + redirectPath;
     </script>
-    <div id="root"></div>
-    <!-- Подключаем основной скрипт приложения -->
-    <script type="module" src="./src/main.tsx"></script>
-  </body>
+  </head>
+  <body></body>
 </html>
